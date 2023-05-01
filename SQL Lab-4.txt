@@ -1,0 +1,29 @@
+CREATE TABLE Dept
+(
+Dept_id number(7)PRIMARY KEY,
+Dept_name varchar2(255)NOT NULL,
+Manager_id number(25),
+Location_id number(25)
+)
+
+CREATE TABLE EMP
+(
+Emp_id number(20),
+Last_name varchar2(50) NOT NULL,
+Email varchar2(25) UNIQUE,
+Salary number(20)CHECK (Salary>10000),
+Department_id number(7),
+CONSTRAINT emp_dep_FK FOREIGN KEY(Department_id) REFERENCES Dept(Dept_id)
+)
+
+CREATE TABLE EMP1
+(
+Id number(7),
+CONSTRAINT my_emp1_id_pk PRIMARY KEY(ID),
+Last_name varchar2(50) NOT NULL,
+First_name varchar2(25) UNIQUE,
+Dept_id number(7),
+Salary number(20) CHECK(salary>20000)
+)
+
+select * from user_constraints where table_name='EMP1';

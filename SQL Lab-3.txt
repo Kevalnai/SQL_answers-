@@ -1,0 +1,211 @@
+create table employees(
+ employee_id number primary key,
+ first_name varchar2(20) default null,
+ last_name varchar2(25) not null,
+ email varchar2(25) not null,
+ phone_number varchar2(20) default null,
+ hire_date date not null,
+ job_id varchar2(10),
+ salary number default null,
+ commission_pct number default null,
+ manager_id number default null,
+ department_id number   
+);
+\
+
+
+create table region(
+
+region_id number primary key,
+region_name varchar2(25)
+);
+
+create table countries(
+
+country_id char(2) primary key,
+country_name varchar2(40),
+region_id number references region(region_id)
+);
+create table countries(
+
+country_id char(2) primary key,
+country_name varchar2(40),
+region_id number references region(region_id)
+);
+
+create table location
+(
+Location_id number primary key,
+Street_address varchar2(25),
+Postal_code varchar2(12),
+City varchar2(30),
+State_province varchar2(12),
+Country_id char(2) references countries(country_id)
+);
+
+create table department
+(
+Department_id number primary key,
+Department_name varchar2(30),
+Manager_id number,
+Location_id number references location(Location_id)
+
+);
+
+create table jobs
+(
+Job_id varchar2(10) primary key,
+Job_tile varchar2(35),
+Min_salary number,
+Max_salary number
+);
+
+
+
+
+INSERT INTO EMPLOYEES VALUES (100,'Steven','King','Sking','515.123.4567','17-JUN-03','AD_PRES',24000,0,0,90)
+INSERT INTO EMPLOYEES VALUES (101,'Neena','Kochhar','Nkochhar','515.123.4568','21-SEP-05','AD_VP',17000,0,100,90)
+INSERT INTO EMPLOYEES VALUES (102,'Lex','De Haan','Ldehaan','515.123.4569','13-JAN-01','AD_VP',17000,0,100,90)
+INSERT INTO EMPLOYEES VALUES (103,'Alexander','Hunold','Ahunold','590.423.4567','13-JAN-06','IT_PROG',9000,0,102,60)
+INSERT INTO EMPLOYEES VALUES (104,'Bruce','Ernst','Bernst','590.423.4568','21-MAY-07','IT_PROG',6000,0,103,60)
+INSERT INTO EMPLOYEES VALUES (105,'David','Austin','Daustin','590.423.4569','25-JUN-05','IT_PROG',4800,0,103,60)
+INSERT INTO EMPLOYEES VALUES (106,'Valli','Pataballa','Vpatabal','590.423.4560','05-FEB-06','IT_PROG',4800,0,103,60)
+INSERT INTO EMPLOYEES VALUES (107,'Diana','Lorentz','Dlorentz','590.423.5567','07-FEB-07','IT_PROG',4200,0,103,60)
+INSERT INTO EMPLOYEES VALUES (108,'Nancy','Greenberg','Ngreenbe','515.124.4569','17-AUG-02','FI_MGR',12000,0,101,100)
+INSERT INTO EMPLOYEES VALUES (109,'Daniel','Faviet','Dfaviet','515.124.4169','16-AUG-02','FI_ACCOUNT',9000,0,108,100)
+
+QUERY3:
+SELECT*FROM EMPLOYEES
+
+QUERY4:
+SELECT FIRST_NAME, LAST_NAME, JOB_ID, SALARY FROM EMPLOYEES
+
+QUERY5:
+TRUNCATE TABLE EMPLOYEES
+
+QUERY6:
+DROP TABLE EMPLOYEES
+
+QUERY9:
+SELECT FIRST_NAME||'_'||LAST_NAME as full_name ,JOB_ID,SALARY*12 as annual_salary  from EMPLOYEES ;
+
+QUERY10:
+SELECT COUNT(EMPLOYEE_ID) as Total_number_of_Employees from EMPLOYEES
+
+QUERY11:
+SELECT SUM(SALARY) as Total_Annual_Salary from EMPLOYEES;
+
+QUERY12:
+SELECT max(SALARY) from EMPLOYEES; #Max Salary
+    SELECT min(SALARY) from EMPLOYEES; #Min Salary
+
+QUERY13:
+SELECT FIRST_NAME||'_'||LAST_NAME as full_name,SALARY from EMPLOYEES ORDER BY SALARY ;
+
+QUERY14:
+SELECT FIRST_NAME||'_'||LAST_NAME as full_name,SALARY from EMPLOYEES ORDER BY SALARY desc;
+
+QUERY15:
+SELECT FIRST_NAME||'_'||LAST_NAME as full_name from EMPLOYEES ORDER BY full_name;
+
+(16) error :(
+    SELECT EMPLOYEE_ID,FIRST_NAME||'_'||LAST_NAME as FULL_NAME,DEPARTMENT_ID,SALARY from EMPLOYEES ORDER BY FULL_NAME ,DISTINCT DEPARTMENT_ID, ORDER BY SALARY desc;
+    SELECT EMPLOYEE_ID,FIRST_NAME||'_'||LAST_NAME as FULL_NAME,DEPARTMENT_ID,SALARY from EMPLOYEES ORDER BY FULL_NAME  ,  ORDER BY SALARY desc , DISTINCT DEPARTMENT_ID ;
+
+ SELECT EMPLOYEE_ID,FIRST_NAME||'_'||LAST_NAME as FULL_NAME,DEPARTMENT_ID,SALARY, DISTINCT( FULL_NAME)  DEPARTMENT_ID from EMPLOYEES  group by DEPARTMENT_ID  ,ORDER BY FULL_NAME ASC,SALARY desc , DEPARTMENT_ID ASC ;
+
+
+(17)SELECT FIRST_NAME||'_'||LAST_NAME as full_name ,SALARY*12 as annual_salary  from EMPLOYEES order by annual_salary desc;
+
+
+
+(18)SELECT count(EMPLOYEE_ID),DEPARTMENT_ID
+from EMPLOYEES
+group by DEPARTMENT_ID
+
+(19)SELECT count(EMPLOYEE_ID),JOB_ID
+from EMPLOYEES
+group by JOB_ID
+
+(20)SELECT sum(salary),DEPARTMENT_ID
+from EMPLOYEES
+group by DEPARTMENT_ID
+
+(21)SELECT max(SALARY),DEPARTMENT_ID
+from EMPLOYEES
+group by DEPARTMENT_ID
+
+(22)SELECT JOB_ID,sum(SALARY) as Total_Salary
+from EMPLOYEES
+group by JOB_ID
+
+
+SELECT CONCAT(FIRST_NAME,LAST_NAME) from EMPLOYEES;
+update employees72 set COMMISSION_PCT=COMMISSION_PCT+SALARY*5/100;
+
+
+
+#OPERATORS
+
+(1)SELECT FIRST_NAME||' '||LAST_NAME as employee_ame from EMPLOYEES where DEPARTMENT_ID=20
+
+
+(2)SELECT FIRST_NAME||' '||LAST_NAME as employee_name , SALARY*12 as annual_salary from EMPLOYEES where SALARY >10000
+
+
+(3)SELECT FIRST_NAME||' '||LAST_NAME as employee_name , SALARY/30 as daily_salary from EMPLOYEES where SALARY>100
+
+
+(4)SELECT FIRST_NAME||' '||LAST_NAME as employee_name from EMPLOYEES where DEPARTMENT_ID!=20
+
+
+(5)SELECT FIRST_NAME||' '||LAST_NAME as employee_name,JOB_ID from EMPLOYEES where JOB_ID='AC_MGR' and SALARY <5000      error
+
+
+
+(6)SELECT FIRST_NAME||' '||LAST_NAME as employee_name,JOB_ID,SALARY from EMPLOYEES where job_id='FI_ACCOUNT' and SALARY<20000
+
+
+(7)SELECT FIRST_NAME||' '||LAST_NAME as employee_name,JOB_ID,SALARY from EMPLOYEES where job_id='FI_ACCOUNT' and SALARY between 5000 and 20000
+
+
+(8)SELECT FIRST_NAME||' '||LAST_NAME as employee_name,SALARY from EMPLOYEES where COMMISSION_PCT!=0
+
+
+(9)SELECT FIRST_NAME||' '||LAST_NAME as employee_name,SALARY from EMPLOYEES 
+WHERE FIRST_NAME IN ('John', 'Jane', 'Peter', 'David');
+
+
+(10)SELECT FIRST_NAME||' '||LAST_NAME as employee_name,JOB_ID,SALARY from EMPLOYEES 
+ WHERE JOB_ID NOT IN ('PRESIDENT', 'MGR') 
+ORDER BY salary ASC;
+
+
+(11)SELECT FIRST_NAME || ' ' || LAST_NAME AS eployee_name, hire_date
+FROM EMPLOYEES 
+WHERE hire_date < '1-JAN-2005' OR hire_date > '31-DEC-2005';
+
+
+(12)SELECT FIRST_NAME || ' ' || LAST_NAME AS eployee_name, hire_date
+FROM EMPLOYEES 
+WHERE hire_date IN('1-JUL-2006','24-MAR-2007','04-JAN-2008')
+ORDER BY HIRE_DATE ASC;
+
+
+(13)SELECT FIRST_NAME || '  ' || LAST_NAME||', '||JOB_ID AS eployee_detail
+FROM EMPLOYEES
+
+ 
+
+(14)SELECT FIRST_NAME || '  ' || LAST_NAME AS employee_detail
+
+FROM EMPLOYEES where hire_date between '1-JAN-2004'AND'31-DEC-2008'
+ 
+
+
+
+
+
+
+
+

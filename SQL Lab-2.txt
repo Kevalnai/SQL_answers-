@@ -1,0 +1,149 @@
+CREATE TABLE CLIENT_MASTER
+(
+CLIENT_NO VARCHAR2 (6),
+NAME VARCHAR2 (20),
+ADDRESS_1 VARCHAR2 (30),
+ADDRESS_2 VARCHAR2 (30),
+CITY VARCHAR2 (15),
+PINCODE NUMBER (8),
+STATE VARCHAR2 (15),
+BALDUE NUMBER (10,2)
+)
+
+CREATE TABLE CLIENT_MASTER
+(
+PRODUCTNO VARCHAR2 (6),
+DESCRIPTION VARCHAR2 (15),
+PROFITPERCENT NUMBER (4,2),
+UNITMEASURE VARCHAR2 (10),
+QTYONHAND NUMBER (8),
+REORDERLVL NUMBER (8),
+SELLPRICE NUMBER (8,2),
+COSTPRICE NUMBER (8,2)
+)
+
+CREATE TABLE PRODUCT_MASTER
+(
+SALESMANNO VARCHAR2 (6),
+SALESMANNAME VARCHAR2 (20),
+ADDRESS_1 VARCHAR2 (30),
+ADDRESS_2 VARCHAR2 (30),
+CITY VARCHAR2 (20),
+PINCODE NUMBER (8),
+STATE VARCHAR2 (20),
+SALAMT NUMBER (8,2)
+)
+
+INPUT:-
+
+CLIENT_MASTER
+insert into CLIENT_MASTER VALUES ('C00001', 'Ivan Bayross', '', '', 'Mumbai', 400054, 'Maharashtra', 15000);
+insert into CLIENT_MASTER VALUES ('C00002', 'Mamta Muzumder', '', '', 'Madras', 780001, 'Tamil Nadu', 0);
+insert into CLIENT_MASTER VALUES ('C00003', 'Chhaya Bankar', '', '', 'Mumbai', 400057, 'Maharashtra', 5000);
+insert into CLIENT_MASTER VALUES ('C00004', 'Ashwini Joshi', '', '', 'Bangalore', 560001, 'Karnataka', 0);
+insert into CLIENT_MASTER VALUES ('C00005', 'Hansel Colaco', '', '', 'Mumbai', 400060, 'Maharashtra', 2000);
+insert into CLIENT_MASTER VALUES ('C00006', 'Deepak Sharma', '', '', 'Mangalore', 560050, 'Karnataka', 0);
+
+PRODUCT_MASTER
+insert into PRODUCT_MASTER ('P00001', 'T-Shirts', 5, 'Piece', 200, 50, 350, 250);
+insert into PRODUCT_MASTER ('P0345', 'Shirts', 5, 'Piece', 200, 50, 350, 250);
+insert into PRODUCT_MASTER ('P06734', 'Cotton Jeans', 5, 'Piece', 100, 20, 600, 450);
+insert into PRODUCT_MASTER ('P07865', 'Jeans', 5, 'Piece', 100, 20, 700, 500);
+insert into PRODUCT_MASTER ('P07868', 'Trousers', 2, 'Piece', 150, 50, 850, 550);
+insert into PRODUCT_MASTER ('P07885', 'Pull Overs', 2.5, 'Piece', 80, 30, 700, 450);
+insert into PRODUCT_MASTER ('P07965', ' Denim Shirts', 4, 'Piece', 100, 40, 350, 250);
+insert into PRODUCT_MASTER ('P07975', ' Lycra Tops', 5, 'Piece', 70, 30, 300, 175);
+insert into PRODUCT_MASTER ('P08865', 'Skirts', 5, 'Piece', 75, 30, 450, 300);
+
+SALESMAN_MASTER
+insert into SALESMAN_MASTER ('S00001','Aman','A/14','Worli','Mumbai',400002,'Maharashtra',3500);
+insert into SALESMAN_MASTER ('S00002','Omkar','65','Nariman','Mumbai',400001,'Maharashtra',4000);
+insert into SALESMAN_MASTER ('S00003','Raj','P-7','Bandra','Mumbai',400032,'Maharashtra',5000);
+insert into SALESMAN_MASTER ('S00004','Ashish','A/5','Juhu','Mumbai',400044,'Maharashtra',3500);
+
+Exercise on retrieving records from a table:-
+i)
+
+CLIENT_MASTER
+insert into CLIENT_MASTER VALUES ('C00007', 'Bill Ross', '', '', 'Mumbai', 410054, 'Maharashtra', 16500);
+PRODUCT_MASTER
+insert into PRODUCT_MASTER ('P04545', 'Jacket', 5, 'Piece', 500, 60, 800, 600);
+SALESMAN_MASTER
+insert into SALESMAN_MASTER ('S00005','Darsh','B/903','Point','Mumbai',400052,'Maharashtra',7000);
+
+ii)
+CLIENT_MASTER
+insert into CLIENT_MASTER VALUES ('C00001', 'Ivan Bayross', '', '', 'Mumbai', 400054, 'Maharashtra', 15000);
+PRODUCT_MASTER
+insert into PRODUCT_MASTER ('P00001', 'T-Shirts', 5, 'Piece', 200, 50, 350, 250);
+SALESMAN_MASTER
+insert into SALESMAN_MASTER ('S00001','Aman','A/14','Worli','Mumbai',400002,'Maharashtra',3500);SALESMAN_MASTER
+
+iii)
+describe CLIENT_MASTER;
+
+iv)
+select NAME from CLIENT_MASTER;
+
+v)
+select DISTINCT name from CLIENT_MASTER;
+
+vi)
+select NAME from CLIENT_MASTER order by name desc;
+
+vii)
+select BALDUE from CLIENT_MASTER order by BALDUE ASC;
+
+viii)
+select NAME , CITY from CLIENT_MASTER;
+
+ix)
+select * from CLIENT_MASTER;
+
+x)
+select CLIENTNO,NAME,ADDRESS1,ADDRESS2,CITY,PINCODE,STATE,BALDUE from CLIENT_MASTER;
+
+xi)
+select * from CLIENT_MASTER72 where NAME='Krishna';
+
+xii)
+select CITY ,PINCODE from CLIENT_MASTER72  where NAME='Krishna';
+
+xiii)
+select  CITY,PINCODE from CLIENT_MASTER  where NAME='Krishna'  and CITY='Mumbai';
+
+xiv)
+select CITY ,PINCODE from CLIENT_MASTER  where NAME='Krishna'  and CITY='Mumbai';
+
+xv)
+select CITY ,PINCODE from CLIENT_MASTER  where NAME='Krishna'  and CITY!='Mumbai';
+
+xvi)
+select CITY ,PINCODE from CLIENT_MASTER  where NAME='Krishna'  and (CITY='DELHI' or BALDUE=5000);
+
+xvii)
+select DESCRIPTION from PRODUCT_MASTER;
+
+xviii)
+select NAME from CLIENT_MASTER where CITY='Mumbai';
+
+xix)
+select * from CLIENT_MASTER where CLIENTNO='C00001' or 'C00002';
+
+xx)
+ select * from PRODUCT_MASTER where DESCRIPTION='1.44 drive' and  DESCRIPTION='1.22 drive';
+
+xxi)
+select DESCRIPTION from PRODUCT_MASTER where SELLPRICE>5000;
+
+xxii)
+select NAME from CLIENT_MASTER where CITY='Mumbai' CITY='DELHI' CITY='Madras';
+
+xxiii)
+select DESCRIPTION from PRODUCT_MASTER where SELLPRICE>2000 or SELLPRICE<5000;
+
+xxiv)
+select NAME,CITY,STATE from CLIENT_MASTER where STATE!='Maharashtra';
+
+xxv)
+select count(*) from CLIENT_MASTER;
